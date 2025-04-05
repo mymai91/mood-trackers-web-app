@@ -37,7 +37,6 @@ export default {
   },
   mutations: {
     TRACK_MOOD(state: MoodState, moodPayload: MoodState) {
-      console.log("### TRACK_MOOD", moodPayload);
       state.mood = moodPayload.mood;
       state.comment = moodPayload.comment;
       state.createdAt = moodPayload?.createdAt || new Date();
@@ -55,7 +54,6 @@ export default {
       mood: Mood,
     ) {
       const moodFromStore = Cookies.get(storageKey.mood);
-      console.log("###CREATE A MOOD####");
       if (moodFromStore) {
         const errorMessage = "You have already tracked your mood today";
         commit("SET_ERROR", errorMessage);
