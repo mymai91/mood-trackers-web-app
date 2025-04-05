@@ -57,11 +57,14 @@
         </div>
       </Field>
 
-      <button type="submit" class="bg-green-500 text-white rounded p-4">
-        Save
+      <button
+        type="submit"
+        class="bg-green-500 hover:bg-green-600 transition-colors duration-200 text-white rounded-md px-6 py-3 font-semibold flex items-center justify-center gap-2"
+      >
+        <span>Save</span>
 
         <div
-          v-if="submitResp.isLoadding"
+          v-if="submitResp.isLoading"
           class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
         ></div>
       </button>
@@ -107,9 +110,9 @@ const onSubmit = async (values: MoodFormValue, { resetForm }: any) => {
     submitResp.value.mood = resp.mood;
     resetForm();
   } else {
-    submitResp.value.error = resp.error;
+    submitResp.value.error = resp.message;
+    submitResp.value.isLoadding = false;
   }
-  submitResp.value.isLoadding = false;
 };
 
 onMounted(() => {

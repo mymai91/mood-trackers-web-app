@@ -12,14 +12,6 @@
       </p>
     </div>
     <MoodTrackForm />
-    <div class="my-8">
-      <router-link
-        to="/history"
-        class="text-blue-500 hover:text-blue-700 underline"
-      >
-        View Mood History
-      </router-link>
-    </div>
   </div>
 </template>
 

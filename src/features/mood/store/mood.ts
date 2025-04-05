@@ -67,42 +67,29 @@ export default {
       }
 
       try {
-        const response = await createMoodApi(mood);
+        await createMoodApi(mood);
 
-        console.log("###CREATE A MOOD####");
+        Cookies.set(storageKey.mood, JSON.stringify(mood), {
+          expires: 1,
+        });
 
-        console.log("response", response);
-        // commit("SET_RECEIPTS", response.data);
-        // commit("SET_META", response.meta);
+        commit("TRACK_MOOD", mood);
 
-        // return response;
-
-        // return {
-        //   success: true,
-        //   message: "Mood tracked successfully",
-        // };
+        return {
+          success: true,
+          message: "Mood tracked successfully",
+        };
       } catch (error: any) {
-        console.log("errr", error);
-        // const message = error.message || "Failed to fetch receipts";
-        // commit("SET_ERROR", message);
-        // return Promise.reject(error);
-        // return {
-        //   success: true,
-        //   message: "An Error happen when submit your mood",
-        // };
+        const message = error.data.message || "Create error";
+
+        commit("SET_ERROR", message);
+        return {
+          success: false,
+          message: message,
+        };
       } finally {
         commit("SET_LOADING", false);
       }
-
-      // Cookies.set(storageKey.mood, JSON.stringify(mood), {
-      //   expires: 1,
-      // });
-      // commit("TRACK_MOOD", mood);
-
-      // return {
-      //   success: true,
-      //   message: "Mood tracked successfully",
-      // };
     },
     async getTrackMoodByDate({ commit }: ActionContext<MoodState, RootState>) {
       commit("SET_LOADING", true);
