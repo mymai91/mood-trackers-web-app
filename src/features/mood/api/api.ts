@@ -1,19 +1,9 @@
-// import type { Period } from "../../../entities/Entity";
-// import type { Mood, MoodEntity } from "../../../entities/MoodEntity";
-// import { api } from "../../../lib/services/api";
+import type { Mood } from "@/entities/MoodEntity";
 
-import type { Period } from "@/entities/Entity";
-import type { Mood, MoodEntity } from "@/entities/MoodEntity";
-import { api } from "@/lib/services/api";
-
-export const getMoodPeriodApi = async (period: Period) => {
-  const response = await api.getList<MoodEntity>("/moods", {
-    query: [`period=${period}`],
-  });
-
-  return response.data;
-};
+import axios from "axios";
 
 export const createMoodApi = async (mood: Mood) => {
-  return api.create<Mood, Mood>("/moods", mood);
+  const response = await axios.post("/moods", mood);
+
+  return response;
 };
