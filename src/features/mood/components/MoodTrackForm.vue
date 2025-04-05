@@ -6,24 +6,23 @@
     >
       {{ submitResp.error }}
     </div>
-
-    <Form :validation-schema="schema" @submit="onSubmit">
-      <Field name="mood" v-slot="{ field, errorMessage }">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+    <!-- @ts-ignore -->
+    <Form :validation-schema="schema" @submit="handleSubmit">
+      <Field name="mood" v-slot="{ field }">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 round-md">
           <button
             v-for="(option, key) in MoodOptionsData"
             :key="key"
             type="button"
             @click="field.onChange(key)"
             :class="[
-              'border-2 p-4',
+              'border-2 p-4 rounded-md',
               emotionColors[key],
               field.value === key
                 ? 'border-blue-500 bg-blue-50'
                 : 'border-gray-200',
             ]"
           >
-            <!-- <div>{{ key }}</div> -->
             <div>{{ option.emoji }}</div>
             <div>{{ option.label }}</div>
           </button>
@@ -83,12 +82,13 @@ import type { Mood } from "@/entities/MoodEntity";
 import { emotionColors, MoodOptionsData } from "@/entities/MoodEntity";
 import { ErrorMessage, Field, Form } from "vee-validate";
 import { computed, onMounted, ref } from "vue";
+//@ts-ignore
 import { useStore } from "vuex";
 import * as yup from "yup";
 
 interface MoodFormValue extends Mood {}
 
-const submitResp = ref({ mood: "", error: "", isLoadding: false });
+const submitResp = ref({ mood: "", error: "", isLoading: false });
 
 // Store
 const store = useStore();
@@ -102,11 +102,11 @@ const schema = yup.object({
 });
 
 const onSubmit = async (values: MoodFormValue, { resetForm }: any) => {
-  submitResp.value.isLoadding = true;
+  submitResp.value.isLoading = true;
   const isTrackedDailyMood = Boolean(moodState.value.mood);
   if (isTrackedDailyMood) {
     submitResp.value.error = "You have already entered your mood for today";
-    submitResp.value.isLoadding = false;
+    submitResp.value.isLoading = false;
     return;
   }
 
@@ -117,8 +117,13 @@ const onSubmit = async (values: MoodFormValue, { resetForm }: any) => {
     resetForm();
   } else {
     submitResp.value.error = resp.message;
-    submitResp.value.isLoadding = false;
+    submitResp.value.isLoading = false;
   }
+};
+
+const handleSubmit = async (...args: any[]) => {
+  //@ts-ignore
+  return onSubmit(...args);
 };
 
 onMounted(() => {

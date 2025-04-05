@@ -1,3 +1,4 @@
+//@ts-ignore
 import { createStore } from "vuex";
 import moodModule, { type MoodState } from "@/features/mood/store/mood";
 
