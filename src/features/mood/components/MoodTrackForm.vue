@@ -1,6 +1,9 @@
 <template>
   <div class="w-full lg:max-w-3xl mx-auto p-4 bg-white shadow-md rounded-lg">
-    <div v-if="submitResp.error" class="mt-4 text-sm text-center text-red-500">
+    <div
+      v-if="submitResp.error"
+      class="mb-4 p-3 bg-red-100 text-white-700 rounded"
+    >
       {{ submitResp.error }}
     </div>
 
@@ -27,7 +30,10 @@
         </div>
       </Field>
 
-      <ErrorMessage name="mood" class="text-red-600 text-sm mb-4 block" />
+      <ErrorMessage
+        name="mood"
+        class="text-red-600 text-xl mb-4 block text-center"
+      />
 
       <Field name="comment" v-slot="{ field }">
         <div class="mb-6">
