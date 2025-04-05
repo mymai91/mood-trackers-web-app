@@ -1,5 +1,5 @@
 import NotFound from "@/components/NotFound.vue";
-import MoodRouter from "@/features/mood/router/MoodRouter";
+import MoodRouter from "@/features/mood/routers/MoodRouter";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
